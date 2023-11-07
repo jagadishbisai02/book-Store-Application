@@ -2,4 +2,8 @@
     background: #fbcfff;
     width: 100vw;
     height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
