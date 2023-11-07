@@ -1,7 +1,6 @@
 import { Component } from "react";
-import Header from "./components/Header/header";
-import Footer from "./components/Footer/footer"
+import Home from "./components/Home/home"
 
-const App = () =><Footer/>
+const App = () =><Home/>
 
 export default App

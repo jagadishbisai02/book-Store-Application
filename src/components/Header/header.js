@@ -16,6 +16,7 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  Link,
 } from "@mui/material";
 
 const Pages = ["Products", "Services", "ContactUs", "About", "Login", "SingUp"];
@@ -26,11 +27,16 @@ const Header = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
-      <AppBar sx={{ background: "#08419e" }}>
+      <AppBar sx={{ background: "#edca68" }}>
         <Toolbar>
           <Typography>
-            <LibraryBooksRoundedIcon />
-            BOOKSHELF.
+            <Link
+              to="/"
+              sx={{ color: "#0702f7", textDecoration: "none", fontSize: "25px", fontFamily: 'Bree San-serif' }}
+            >
+              <LibraryBooksRoundedIcon />
+              BOOKSHELF.
+            </Link>
           </Typography>
           {isMatch ? (
             <>
@@ -49,7 +55,7 @@ const Header = () => {
                 </List>
               </Drawer>
               <IconButton
-                sx={{ marginLeft: "auto", color: "#ffffff" }}
+                sx={{ marginLeft: "auto", color: "#0702f7" }}
                 onClick={() => setOpenDrawer(!openDrawer)}
               >
                 <MenuOpenRoundedIcon />
@@ -58,7 +64,7 @@ const Header = () => {
           ) : (
             <>
               <Tabs
-                sx={{ marginLeft: "auto" }}
+                sx={{ marginLeft: "auto", color: "#0b03ff" }}
                 textColor="inherit"
                 value={value}
                 onChange={(e, value) => setValue(value)}
@@ -69,10 +75,10 @@ const Header = () => {
                 <Tab label="ContactUs" />
                 <Tab label="About" />
               </Tabs>
-              <Button sx={{ marginLeft: "auto" }} variant="contained">
+              <Button sx={{ marginLeft: "auto", background: "#0702f7" }} variant="contained">
                 Login
               </Button>
-              <Button sx={{ marginLeft: "9px" }} variant="contained">
+              <Button sx={{ marginLeft: "9px", background: "#0702f7"  }} variant="contained">
                 SingUp
               </Button>
             </>
