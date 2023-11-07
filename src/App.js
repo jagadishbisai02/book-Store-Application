@@ -1,7 +1,6 @@
 import { Component } from "react";
+import Header from "./components/Header/header";
 
-class App extends Component{
-
-}
+const App = () =><Header/>
 
 export default App
