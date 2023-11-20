@@ -1,0 +1,115 @@
+.section-bg {
+  background-color: #f8f9fa;
+}
+
+.book-title {
+  font-weight: 700;
+  font-family: Philosopher, sans-serif;
+  color: #2f4858;
+}
+
+.image-height {
+  height: 550px;
+  padding-right: 78px;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.content-btn-container {
+  margin: auto;
+  padding-left: 168px;
+}
+
+a {
+  color: #2f4858;
+  text-decoration: none;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  align-items: center;
+  background-color: #5a8f7b;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: all 0.5s;
+  width: 40px;
+  z-index: 99;
+}
+
+.carousel-control-prev {
+  left: 100px;
+  right: auto;
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover {
+  background-color: #2f4858;
+  color: #fff;
+}
+
+.carousel-control-next {
+  left: auto;
+  right: 40px;
+}
+
+/* animation show now button */
+.shop-now-btn {
+  background: #5a8f7b;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  line-height: 30px;
+  margin: 0px;
+  padding: 10px 25px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.shop-now-btn,
+.shop-now-btn:hover {
+  color: #fff;
+  border-radius: 3px;
+}
+
+.shop-now-btn:after,
+.shop-now-btn:before {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
+.book-shop-btns {
+  background-color: #2f4858;
+  border-radius: 3px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.book-shop-btns span{
+  position: relative;
+}
+
+.book-shop-btns:before {
+  background: #5a8f7b;
+  content: "";
+  left: -12%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  width: 125%;
+}
+
+.book-shop-btns:hover:before {
+  transform: translate3d(100%, 0, 0);
+}

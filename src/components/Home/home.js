@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import Loader from "../Loader/loader";
+import Book from "../Books/book";
 import BookCarousel from "../Carousel/carousel";
+import Cards from "../Cards/cards";
 
 const apiStatusConstants = {
   initial: "INITIAL",
@@ -53,15 +55,26 @@ const Home = () => {
     const { errorMsg } = apiResponse;
   };
 
+  const renderSuccessView = () => {
+    const { bookDetails } = apiResponse;
+
+    return (
+      <>
+        <BookCarousel bookDetails={bookDetails} />
+        <Cards />
+        <Book bookDetails={bookDetails} />
+      </>
+    );
+  };
+
   const renderBookDetails = () => {
-    const { status, bookDetails } = apiResponse;
-    console.log(bookDetails)
+    const { status } = apiResponse;
 
     switch (status) {
       case apiStatusConstants.inProgress:
         return <Loader />;
       case apiStatusConstants.success:
-        return <BookCarousel bookDetails={bookDetails} />;
+        return renderSuccessView();
       case apiStatusConstants.failure:
         return renderFailureView();
       default:
@@ -69,6 +82,13 @@ const Home = () => {
     }
   };
 
-  return <>{renderBookDetails()}</>;
+  return (
+    <>
+      <div className="home-container">
+        <Header />
+        {renderBookDetails()}
+      </div>
+    </>
+  );
 };
 export default Home;
