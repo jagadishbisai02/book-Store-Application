@@ -2,14 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiExpand } from "react-icons/bi";
-import BookModel from "../Models/model";
+import { IoMdClose } from "react-icons/io";
+import Popup from "reactjs-popup";
 import "./book.css";
-import { useState } from "react";
 
 const Book = (props) => {
   const { bookDetails } = props;
   const { books } = bookDetails;
-  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>
@@ -43,17 +42,58 @@ const Book = (props) => {
                       </button>
                     </li>
                     <li>
-                      <button
-                        className="icon"
-                        onClick={() => setModalShow(true)}
-                      >
-                        <BiExpand />
-                        <BookModel
-                          show={modalShow}
-                          onHide={() => setModalShow(false)}
-                          bookDetails={books[1]}
-                        />
-                      </button>
+                      <div className="popup-container">
+                        <Popup
+                          modal
+                          trigger={
+                            <button
+                              type="button"
+                              className="trigger-button icon"
+                            >
+                              <BiExpand />
+                            </button>
+                          }
+                        >
+                          {(close) => (
+                            <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
+                              <div className="modal-content">
+                                <div className="modal-wrapper">
+                                  <div className="modal-wrapper-top">
+                                    <h3>{eachBook.title}</h3>
+                                    <button
+                                      type="button"
+                                      className="trigger-button close-icon"
+                                      onClick={() => close()}
+                                    >
+                                      <IoMdClose />
+                                    </button>
+                                  </div>
+                                  <div className="row modal-wrapper-bottom">
+                                    <div className="col-lg-6 mb-4 mb-lg-0">
+                                      <img
+                                        src={eachBook.image}
+                                        alt={eachBook.title}
+                                        className="img-fluid w-100"
+                                      />
+                                    </div>
+                                    <div className="col-lg-6">
+                                      <p>
+                                        Price: <span>{eachBook.price}</span>
+                                      </p>
+                                      <button type="button" className="add-to-carts-btn btns-primary">
+                                        <span>
+                                          <MdOutlineShoppingCart />
+                                          Add to cart
+                                        </span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </Popup>
+                      </div>
                     </li>
                   </ul>
                   <div className="book-bottom-details">
