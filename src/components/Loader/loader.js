@@ -1,27 +1,41 @@
-import {useState, useEffect} from 'react'
-import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
+import {useState, useEffect, useRef} from 'react';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
-const Loader = () => {
-    const [progress, setProgress] = useState(0);
+const LinearBuffer = () => {
+  const [progress, setProgress] = useState(0);
+  const [buffer, setBuffer] = useState(10);
 
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setProgress((prevProgress) =>
-          prevProgress >= 100 ? 0 : prevProgress + 10
-        );
-      }, 800);
+  const progressRef = useRef(() => {});
+  useEffect(() => {
+    progressRef.current = () => {
+      if (progress > 100) {
+        setProgress(0);
+        setBuffer(10);
+      } else {
+        const diff = Math.random() * 10;
+        const diff2 = Math.random() * 10;
+        setProgress(progress + diff);
+        setBuffer(progress + diff + diff2);
+      }
+    };
+  });
 
-      return () => {
-        clearInterval(timer);
-      };
-    }, []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      progressRef.current();
+    }, 500);
 
-    return (
-      <Stack>
-        <CircularProgress variant="determinate" value={progress} />
-      </Stack>
-    );
-  };
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
-  export default Loader
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
+    </Box>
+  );
+}
+
+export default LinearBuffer

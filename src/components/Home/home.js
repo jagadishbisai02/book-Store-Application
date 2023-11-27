@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
-import Loader from "../Loader/loader";
+import LinearBuffer from "../Loader/loader";
 import Book from "../Books/book";
 import BookCarousel from "../Carousel/carousel";
 import Cards from "../Cards/cards";
@@ -28,7 +28,7 @@ const Home = () => {
         errorMsg: null,
       });
 
-      const apiUrl = "https://api.itbook.store/1.0/search/mongodb";
+      const apiUrl = "https://api.itbook.store/1.0/search/mongodb/2";
       const options = {
         method: "GET",
       };
@@ -67,12 +67,20 @@ const Home = () => {
     );
   };
 
+  const renderLoader = () => {
+    return (
+      <div className="d-flex justify-center items-center">
+        <LinearBuffer />
+      </div>
+    );
+  };
+
   const renderBookDetails = () => {
     const { status } = apiResponse;
 
     switch (status) {
       case apiStatusConstants.inProgress:
-        return <Loader />;
+        return renderLoader();
       case apiStatusConstants.success:
         return renderSuccessView();
       case apiStatusConstants.failure:
