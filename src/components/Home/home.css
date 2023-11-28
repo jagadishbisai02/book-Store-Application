@@ -1,0 +1,124 @@
+.subscriber-images {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+.subscriber-content-title {
+  color: #2f4858;
+  font-family: Philosopher, sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.subscriber-content-subtitle {
+  color: #676768;
+  font-family: Poppins, sans-serif;
+  line-height: 1.5;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.subscriber-content form .input {
+  display: flex;
+}
+
+.subscriber-content form .input input {
+  border: 0;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  box-shadow: 2px 0 15px 5px rgba(1, 6, 33, 0.06);
+  padding: 15px;
+  width: 100%;
+  outline: none;
+  color: rgb(7, 7, 7);
+  font-weight: 400;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.subscriber-content form .input button {
+  border-bottom-right-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  border-radius: 0;
+}
+
+.subscribe-btn {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.subscribe-btn:after,
+.subscribe-btn:before {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.subscriber-btns {
+  background-color: #2f4858;
+  border-radius: 3px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.subscriber-btns span {
+  position: relative;
+}
+
+.subscriber-btns:before {
+  background: #5a8f7b;
+  content: "";
+  left: -12%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  width: 125%;
+}
+
+.subscriber-btns:hover:before {
+  transform: translate3d(100%, 0, 0);
+}
+
+.subscriber-content-social {
+  display: flex;
+  gap: 7px;
+  margin-top: 23px !important;
+}
+
+.subscriber-content-social li a {
+  align-items: center;
+  background-color: #5a8f7b;
+  border-radius: 50%;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  transition: all 0.5s;
+  width: 40px;
+  color: #fff;
+}
+
+.subscriber-content-social li a:hover {
+  background-color: #2f4858;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+ul,
+ul li {
+  margin: 0px;
+  padding: 0px;
+}
