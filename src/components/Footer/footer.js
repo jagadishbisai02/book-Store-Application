@@ -1,36 +1,89 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import LibraryBooksRoundedIcon from "@mui/icons-material/LibraryBooksRounded";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import {
+  FaTwitter,
+  FaFacebookF,
+  FaYoutube,
+  FaLinkedin,
+  FaRegCopyright,
+} from "react-icons/fa";
+import { AiFillInstagram } from "react-icons/ai";
+import { IoHelpBuoy } from "react-icons/io5";
+import "./footer.css";
+
 const Footer = () => {
   return (
     <>
-      <div className="Footer mt-5 bg-warning">
+      <div className="footer bg-warning bg-opacity-50">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 col-lg-4 col-4">
-              <a href="/" className="navbar-brand text-primary">
-                <LibraryBooksRoundedIcon />
-                BOOKSHELF.
-              </a>
+            <div className="col-md-6 footer-top">
+              <h1 className="footer-title">Book Information ?</h1>
               <p>
                 Information of any Book please send mail on Support@gmail.com
               </p>
-              <div className="footer-icons text-primary">
-                <TwitterIcon />
-                <InstagramIcon />
-                <FacebookIcon />
-                <YouTubeIcon />
-                <LinkedInIcon />
+            </div>
+            <div className="col-md-6 help-line">
+              <h1>
+                <span>
+                  <IoHelpBuoy />
+                </span>
+                Need Help?
+              </h1>
+              <p>
+                Please call us at <a href="tel:0123456789">+91 0123456789</a>
+              </p>
+            </div>
+            <div className="col-md-6">
+              <div className="footer-icons">
+                <a
+                  href="https://www.twitter.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaTwitter className="icons" />
+                </a>
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <AiFillInstagram className="icons" />
+                </a>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaFacebookF className="icons" />
+                </a>
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaYoutube className="icons" />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaLinkedin className="icons" />
+                </a>
               </div>
             </div>
-            <div className="col-md-6 col-lg-4 col-4">
-            
+            <hr />
+            <div className="footer-bottom">
+              <a href="/" className="footer-bottom-title">
+                BOOKSHELF.
+              </a>
+              <p>
+                <span>
+                  <FaRegCopyright />
+                </span>
+                2023 All right reserved. Made with interested on web-templates.
+              </p>
             </div>
-            <div className="col-md-6 col-lg-4 col-4"></div>
           </div>
         </div>
       </div>

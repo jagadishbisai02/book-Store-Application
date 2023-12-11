@@ -1,0 +1,80 @@
+.footer {
+  padding-top: 25px;
+}
+.footer-title {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.footer-bottom-title {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+.footer-top p {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-size: 19px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.help-line h1 {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.help-line p {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-size: 19px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.row hr {
+  background: #2f4858;
+  width: 100%;
+  height: 2px;
+}
+
+.footer-icons {
+  display: flex;
+  align-items: center;
+}
+
+.footer-icons a .icons {
+  font-size: 35px;
+  background: #5a8f7b;
+  border-radius: 50%;
+  padding: 8px 6px;
+  margin: 8px;
+  color: #fff;
+}
+
+.footer-icons a .icons:hover {
+  background: #2f4858;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  color: #2f4858;
+  font-family: sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}

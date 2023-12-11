@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
-import LinearBuffer from "../Loader/loader";
+import { ThreeCircles } from "react-loader-spinner";
 import Book from "../Books/book";
 import BookCarousel from "../Carousel/carousel";
 import { GrFacebookOption } from "react-icons/gr";
 import { IoLogoTwitter } from "react-icons/io";
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import Cards from "../Cards/cards";
-import Subscribe from "../Subscribe/subscribe";
 import "./home.css";
 
 const apiStatusConstants = {
@@ -24,8 +23,8 @@ const Home = () => {
     bookDetails: null,
     errorMsg: null,
   });
-  const [subscribed, setSubscribed] = useState(false);
   const [value, setValue] = useState("");
+  const [message, setMessage] = useState("");
 
   const inputValue = (event) => {
     setValue(event.target.value);
@@ -33,9 +32,18 @@ const Home = () => {
 
   const onSubscribe = (event) => {
     event.preventDefault();
-    setSubscribed(!subscribed);
-    if (subscribed) {
-      emailValidation();
+    if (value === "") {
+      setMessage("0 - Please enter a value");
+    } else if (value.indexOf("@") === -1) {
+      setMessage("0 - An email address must contain a single @.");
+    } else if (value.indexOf("gmail.com") === -1) {
+      setMessage(
+        ` 0 - The domain portion of the email address is invalid (the portionmafter the @: ${value}) `
+      );
+    } else {
+      setMessage(
+        "Almost finished... We need to confirm your email address. To complete the subscription process, please click the link in the email we just sent you."
+      );
     }
     setValue("");
   };
@@ -70,24 +78,6 @@ const Home = () => {
     };
     getBookDeatils();
   }, []);
-
-  const emailValidation = (subscribed) => {
-    switch (subscribed) {
-      case value === "":
-        return <p>0 - Please enter a value</p>;
-      case value.includes(!"@"):
-        return <p>0 - An email address must contain a single @.</p>;
-      case value.includes(!"gmail.com"):
-        return (
-          <p>
-            0 - The domain portion of the email address is invalid (the portion
-            after the @: )
-          </p>
-        );
-      default:
-        return null;
-    }
-  };
 
   const renderFailureView = () => {
     const { errorMsg } = apiResponse;
@@ -140,14 +130,13 @@ const Home = () => {
                             <span>Subscribe</span>
                           </button>
                         </div>
-                        {subscribed
-                          ? { emailValidation }
-                          : // <div className="alert alert-success mt-3">
-                            //   Almost finished... We need to confirm your email
-                            //   address. To complete the subscription process,
-                            //   please click the link in the email we just sent you.
-                            // </div>
-                            ""}
+                        {message.length === 0 ? (
+                          ""
+                        ) : (
+                          <div className="message col mt-3">
+                            <div className="alert alert-danger">{message}</div>
+                          </div>
+                        )}
                       </form>
                       <ul className="subscriber-content-social mt-3">
                         <li>
@@ -209,8 +198,19 @@ const Home = () => {
 
   const renderLoader = () => {
     return (
-      <div className="d-flex justify-center items-center">
-        <LinearBuffer />
+      <div className="loader-container">
+        <ThreeCircles
+          height="100"
+          width="100"
+          color="#5c4ae0"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="three-circles-rotating"
+          outerCircleColor=""
+          innerCircleColor=""
+          middleCircleColor=""
+        />
       </div>
     );
   };
@@ -235,6 +235,7 @@ const Home = () => {
       <div className="home-container">
         <Header />
         {renderBookDetails()}
+        <Footer />
       </div>
     </>
   );

@@ -10,6 +10,10 @@
   transition: 0.5s;
 }
 
+.offer-card:hover .offer-image img {
+  transform: scale(1.1);
+}
+
 .offer-card,
 .offer-card:hover .offer-image {
   overflow: hidden;
