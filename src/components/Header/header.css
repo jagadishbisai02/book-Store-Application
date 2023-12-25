@@ -84,7 +84,6 @@ a {
   }
 }
 
-
 .search-container {
   display: flex;
   justify-content: center;
@@ -178,4 +177,48 @@ a {
   right: -8px;
   top: -2px;
   width: 18px;
+}
+
+.header-menu-top {
+  align-items: center;
+  background-color: #f8f9fa;
+  display: flex;
+  height: 90px;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.header-menu-offcanvas ul {
+  height: calc(100vh - 120px);
+  padding: 60px 0px;
+}
+
+.title-headers {
+  color: #2f4858;
+  font-family: Philosopher, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.header-menu-offcanvas ul a {
+  color: #2f4858;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.header-menu-offcanvas ul a li {
+  margin-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 16px;
+  font-size: 19px;
+  font-family: sans-serif;
+}
+
+.header-menu-offcanvas ul a li:hover {
+  color: #198754;
+}
+
+.bs-scroll {
+  overflow-y: auto;
+  padding-right: 15px;
 }

@@ -1,0 +1,31 @@
+
+.modern .order-process {
+    border: 1px solid #d5d5d5;
+    padding: 25px 0px;
+    margin: 5px;
+  }
+  
+  .order-process-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .order-process-item span {
+    background-color: #5a8f7b;
+    padding: 23px 32px;
+    border-radius: 50%;
+    margin: 15px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 500;
+  }
+  
+  .order-process-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 18px;
+  }
+  

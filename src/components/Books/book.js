@@ -68,7 +68,7 @@ const Book = (props) => {
                   </span>
                   <ul className="function-icon">
                     <li>
-                      <button className="icon">
+                      <button className="icon" onClick={onAddCard}>
                         <MdOutlineShoppingCart />
                       </button>
                     </li>

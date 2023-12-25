@@ -1,0 +1,97 @@
+.modern-card {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 26px;
+    margin: 21px 8px;
+  }
+  
+  .modern-card p {
+    font-size: 14px;
+    color: #676768;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .modern-card a {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  
+  .cards-title {
+    color: #2f4858;
+    font-family: "Philosopher", sans-serif;
+    font-weight: 700;
+  }
+  
+  .cards-image {
+    height: 141px;
+    max-width: 100%;
+  }
+  
+  .react-multiple-carousel__arrow {
+    min-width: 33px !important;
+    min-height: 33px !important;
+  }
+  
+  .react-multiple-carousel__arrow--left {
+    background-color: #2f4858 !important;
+    left: calc(2% + 1px) !important;
+  }
+  
+  .react-multiple-carousel__arrow--right {
+    background-color: #2f4858 !important;
+    right: calc(2% + 1px) !important;
+  }
+  
+  /* btn animation */
+  .shop-now-btn {
+    background: #5a8f7b;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    line-height: 30px;
+    margin: 0px;
+    padding: 10px 25px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+  }
+  
+  .shop-now-btn,
+  .shop-now-btn:hover {
+    color: #fff;
+    border-radius: 3px;
+  }
+  
+  .shop-now-btn:after,
+  .shop-now-btn:before {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+  }
+  
+  .book-shop-btns {
+    background-color: #2f4858;
+    border-radius: 3px;
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .book-shop-btns span {
+    position: relative;
+  }
+  
+  .book-shop-btns:before {
+    background: #5a8f7b;
+    content: "";
+    left: -12%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    width: 125%;
+  }
+  
+  .book-shop-btns:hover:before {
+    transform: translate3d(100%, 0, 0);
+  }
+  

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
 import "./carousel.css";
@@ -27,13 +28,12 @@ const BookCarousel = (props) => {
                   {eachBook.title}
                 </h5>
                 <p className="text-muted mb-5 fs-5">{eachBook.subtitle}</p>
-                <a
+                <Link to='/all-books'
                   type="button"
-                  href="#"
                   className="shop-now-btn book-shop-btns"
                 >
                   <span>Shop Now</span>
-                </a>
+                </Link>
               </div>
               <div className="col-md-5 offset-lg-1 text-center">
                 <img

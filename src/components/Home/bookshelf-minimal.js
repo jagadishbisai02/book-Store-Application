@@ -8,7 +8,7 @@ import { GrFacebookOption } from "react-icons/gr";
 import { IoLogoTwitter } from "react-icons/io";
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import Cards from "../Cards/cards";
-import "./home.css";
+import "./bookshelf-minimal.css";
 
 const apiStatusConstants = {
   initial: "INITIAL",
@@ -17,7 +17,7 @@ const apiStatusConstants = {
   failure: "FAILURE",
 };
 
-const Home = () => {
+const BookshelfMinimal = () => {
   const [apiResponse, setApiResponse] = useState({
     status: apiStatusConstants.initial,
     bookDetails: null,
@@ -240,4 +240,4 @@ const Home = () => {
     </>
   );
 };
-export default Home;
+export default BookshelfMinimal;
