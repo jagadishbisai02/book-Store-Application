@@ -56,12 +56,13 @@ const BookshelfMinimal = () => {
         errorMsg: null,
       });
 
-      const apiUrl = "https://api.itbook.store/1.0/search/mongodb/2";
+      const apiUrl = "https://api.itbook.store/1.0/new";
       const options = {
         method: "GET",
       };
       const response = await fetch(apiUrl, options);
       const data = await response.json();
+      console.log(data);
       if (response.ok) {
         setApiResponse((prevData) => ({
           ...prevData,

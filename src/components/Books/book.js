@@ -2,20 +2,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiExpand } from "react-icons/bi";
-import { IoMdClose, IoIosAdd } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import Popup from "reactjs-popup";
+import Modal from "../Modal/modal";
 import { useState } from "react";
 import "./book.css";
 
 const Book = (props) => {
   const { bookDetails } = props;
   const { books } = bookDetails;
+  const [product, setProduct] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const [addToCard, setAddToCard] = useState(false);
   const [count, setCount] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
-  const [index, setIndex] = useState(5);
+  const [index, setIndex] = useState(6);
   const initialBook = books.slice(0, index);
 
   const onAddCard = () => {
@@ -33,8 +36,8 @@ const Book = (props) => {
   };
 
   const onLoadMore = () => {
-    setIndex(index + 3);
-    if (index >= initialBook.length) {
+    setIndex(index + 6);
+    if (index > initialBook.length) {
       setIsComplete(true);
     } else {
       setIsComplete(false);
@@ -86,47 +89,9 @@ const Book = (props) => {
                           }
                         >
                           {(close) => (
-                            <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
-                              <div className="modal-content">
-                                <div className="modal-wrapper">
-                                  <div className="modal-wrapper-top">
-                                    <h3>{eachBook.title}</h3>
-                                    <button
-                                      type="button"
-                                      className="trigger-button close-icon"
-                                      onClick={() => close()}
-                                    >
-                                      <IoMdClose />
-                                    </button>
-                                  </div>
-                                  <div className="row modal-wrapper-bottom">
-                                    <div className="col-lg-6 mb-4 mb-lg-0">
-                                      <img
-                                        src={eachBook.image}
-                                        alt={eachBook.title}
-                                        className="img-fluid w-100"
-                                      />
-                                    </div>
-                                    <div className="col-lg-6">
-                                      <div className="d-flex flex-column">
-                                        <p>
-                                          Price: <span>{eachBook.price}</span>
-                                        </p>
-                                        <button
-                                          type="button"
-                                          className="add-to-carts-btn btns-primary"
-                                        >
-                                          <span>
-                                            <MdOutlineShoppingCart />
-                                            Add to cart
-                                          </span>
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                            <>
+                              <Modal isbn13={eachBook.isbn13} close={close} />
+                            </>
                           )}
                         </Popup>
                       </div>
