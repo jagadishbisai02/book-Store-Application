@@ -4,6 +4,7 @@ import BookshelfMinimal from "./components/Home/bookshelf-minimal";
 import BookshelfModern from "./components/BookshelfModern/bookshelf-modern";
 import AllBooks from "./components/AllBooks/allBooks";
 import CartContext from "./context/cartContext";
+import "./App.css";
 
 class App extends Component {
   state = { cartList: [] };

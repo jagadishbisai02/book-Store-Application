@@ -4,6 +4,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiExpand } from "react-icons/bi";
 import { IoIosAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import Popup from "reactjs-popup";
 import Modal from "../Modal/modal";
@@ -13,14 +14,11 @@ import "./book.css";
 const Book = (props) => {
   const { bookDetails } = props;
   const { books } = bookDetails;
-  const [product, setProduct] = useState([]);
-  const [quantity, setQuantity] = useState(1);
   const [addToCard, setAddToCard] = useState(false);
   const [count, setCount] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
   const [index, setIndex] = useState(6);
   const initialBook = books.slice(0, index);
-
   const onAddCard = () => {
     setAddToCard(true);
   };
@@ -89,9 +87,23 @@ const Book = (props) => {
                           }
                         >
                           {(close) => (
-                            <>
-                              <Modal isbn13={eachBook.isbn13} close={close} />
-                            </>
+                            <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
+                              <div className="modal-content">
+                                <div className="modal-wrapper">
+                                  <div className="modal-wrapper-top">
+                                    <h3>{eachBook.title}</h3>
+                                    <button
+                                      type="button"
+                                      className="trigger-button close-icon"
+                                      onClick={() => close()}
+                                    >
+                                      <IoMdClose />
+                                    </button>
+                                  </div>
+                                  <Modal isbn13={eachBook.isbn13} />
+                                </div>
+                              </div>
+                            </div>
                           )}
                         </Popup>
                       </div>

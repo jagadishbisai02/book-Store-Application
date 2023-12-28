@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
+import { FiMinus } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import Loader from "react-loader-spinner";
 import "./modal.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,11 +15,26 @@ const apiStatusConstants = {
 };
 
 const Modal = (props) => {
+  const [addToCard, setAddToCard] = useState(false);
+  const [count, setCount] = useState(1);
   const [apiResponse, setApiResponse] = useState({
     status: apiStatusConstants.initial,
     data: null,
     errorMsg: null,
   });
+  const onAddCard = () => {
+    setAddToCard(true);
+  };
+
+  const onDelete = () => {
+    if (count === 1) {
+      setAddToCard(false);
+    }
+  };
+
+  const Counter = () => {
+    setCount(count + 1);
+  };
 
   useEffect(() => {
     const getBooks = async () => {
@@ -53,10 +71,6 @@ const Modal = (props) => {
     getBooks();
   }, []);
 
-  if (!props.show) {
-    return null;
-  }
-
   const renderFailureView = () => {
     const { errorMsg } = apiResponse;
     return <div>{errorMsg}</div>;
@@ -84,44 +98,96 @@ const Modal = (props) => {
 
     return (
       <>
-        <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
-          <div className="modal-content">
-            <div className="modal-wrapper">
-              <div className="modal-wrapper-top">
-                <h3>{updatedData.title}</h3>
-                <button
-                  type="button"
-                  className="trigger-button close-icon"
-                  onClick={props.close()}
-                >
-                  <IoMdClose />
-                </button>
-              </div>
-              <div className="row modal-wrapper-bottom">
-                <div className="col-lg-6 mb-4 mb-lg-0">
-                  <img
-                    src={updatedData.image}
-                    alt={updatedData.title}
-                    className="img-fluid w-100"
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <div className="d-flex flex-column">
-                    <p>
-                      Price: <span>{updatedData.price}</span>
-                    </p>
-                    <button
-                      type="button"
-                      className="add-to-carts-btn btns-primary"
-                    >
-                      <span>
-                        <MdOutlineShoppingCart />
-                        Add to cart
-                      </span>
-                    </button>
+        <div className="row modal-wrapper-bottom">
+          <div className="col-lg-5 mb-4 mb-lg-0">
+            <img
+              src={updatedData.image}
+              alt={updatedData.title}
+              className="img-fluid w-80"
+            />
+          </div>
+          <div className="col-lg-6">
+            <div className="row">
+              <p>{updatedData.subtitle}</p>
+              <p>{updatedData.description}</p>
+              <ul className="description-details">
+                <li>
+                  <p>
+                    <span>Authors</span> : {updatedData.authors}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Publisher</span> : {updatedData.publisher}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Pages</span> : {updatedData.pages}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Language</span> : {updatedData.language}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Year</span> : {updatedData.year}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>isbn10</span> : {updatedData.isbn10}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>isbn13</span> : {updatedData.isbn13}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Rating</span> : {updatedData.rating}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <span>Price</span> : {updatedData.price}
+                  </p>
+                </li>
+              </ul>
+                {addToCard ? (
+                  <div className="calculations">
+                    <div className="calculations-btn">
+                      <button type="button">
+                        {count === 1 ? (
+                          <span onClick={onDelete}>
+                            <MdDeleteOutline />
+                          </span>
+                        ) : (
+                          <span onClick={() => setCount(count - 1)}>
+                            <FiMinus />
+                          </span>
+                        )}
+                      </button>
+                      <span>{count}</span>
+                      <button type="button" onClick={Counter}>
+                        <span>
+                          <IoIosAdd />
+                        </span>
+                      </button>
+                    </div>
+                    <span>{updatedData.price * count}</span>
                   </div>
-                </div>
-              </div>
+                ) : (
+                  <button className="add-to-carts-btn btns-primary">
+                    <span onClick={onAddCard}>
+                      <MdOutlineShoppingCart />
+                      Add to cart
+                    </span>
+                  </button>
+                )}
             </div>
           </div>
         </div>
@@ -129,10 +195,20 @@ const Modal = (props) => {
     );
   };
 
+  const renderLoaderView = () => {
+    return (
+      <div className="loader-container">
+        <Loader type="Oval" color="#943E3E" height="50" width="50" />
+      </div>
+    );
+  };
+
   const renderModal = () => {
     const { status } = apiResponse;
 
     switch (status) {
+      case apiStatusConstants.inProgress:
+        return renderLoaderView();
       case apiStatusConstants.success:
         return renderSuccessView();
       case apiStatusConstants.failure:

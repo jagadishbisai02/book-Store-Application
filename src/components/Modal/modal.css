@@ -1,69 +1,5 @@
 /* Model */
 
-.popup-overlay {
-  z-index: 9999 !important;
-}
-
-.modal-bg {
-  top: 52%;
-  left: 32%;
-  transform: translate(-50%, -50%);
-  @media screen and (max-width: 768px) {
-    top: 62%;
-    left: 55%;
-  }
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9998;
-}
-
-.popup-content {
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
-  overflow: auto;
-}
-
-.modal-content {
-  width: 90%;
-}
-
-.modal-wrapper {
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.modal-wrapper-top {
-  align-items: center;
-  background-color: #f8f9fa;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-.close-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  color: #5a8f7b;
-  border: 1px solid #5a8f7b;
-  border-radius: 50%;
-  padding: 5px;
-  font-size: 19px;
-}
-
-.close-icon:hover {
-  background: #5a8f7b;
-  color: #f8f9fa;
-}
-
 .modal-wrapper-bottom {
   max-height: auto;
   overflow-y: auto;
@@ -75,4 +11,69 @@
   height: 494px;
   object-fit: cover;
   width: 100%;
+}
+
+.modal-wrapper-bottom ul li p {
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  margin-bottom: 8px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-family: "philosopher", sans-serif;
+  color: #676768;
+}
+
+.description-details li p span {
+  color: #2f4858;
+}
+
+.calculations {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.calculations-btn {
+  align-items: center;
+  background-color: #2f4858;
+  border-radius: 5px;
+  display: flex;
+  overflow: hidden;
+}
+
+.calculations-btn button span {
+  color: #fff;
+  font-weight: 500;
+  font-size: "poppins", sans-serif;
+}
+
+.calculations-btn button {
+  background: none;
+}
+
+.book-card-button .calculations-btn button {
+  height: 40px;
+  width: 40px;
+}
+
+.calculations-btn button:hover {
+  background-color: #5a8f7b;
+}
+
+.calculations-btn button,
+.calculations-btn span {
+  align-items: center;
+  border: none;
+  color: #fff;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+ul,
+ul li {
+  margin: 0;
+  padding: 0;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
-import { ThreeCircles } from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 import BookV2 from "../BooksV2/bookv2";
 import CardSlider from "../CardSlider/cardSlider";
 import { GrFacebookOption } from "react-icons/gr";
@@ -91,7 +91,7 @@ const BookshelfModern = () => {
       <>
         <div className="modern">
           <CardSlider />
-          <OrderProcess/>
+          <OrderProcess />
         </div>
         <Cards />
         <BookV2 bookDetails={bookDetails} />
@@ -203,18 +203,7 @@ const BookshelfModern = () => {
   const renderLoader = () => {
     return (
       <div className="loader-container">
-        <ThreeCircles
-          height="100"
-          width="100"
-          color="#5c4ae0"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="three-circles-rotating"
-          outerCircleColor=""
-          innerCircleColor=""
-          middleCircleColor=""
-        />
+        <Loader type="Oval" color="#943E3E" height="50" width="50" />
       </div>
     );
   };
