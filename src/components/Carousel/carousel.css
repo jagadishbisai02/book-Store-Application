@@ -27,6 +27,10 @@ Link {
   text-decoration: none;
 }
 
+.carousel-indicators {
+  position: unset;
+}
+
 .carousel-control-prev,
 .carousel-control-next {
   align-items: center;
@@ -97,7 +101,7 @@ Link {
   overflow: hidden;
 }
 
-.book-shop-btns span{
+.book-shop-btns span {
   position: relative;
 }
 
