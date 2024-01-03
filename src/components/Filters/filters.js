@@ -3,11 +3,11 @@ import "./filters.css";
 
 const FiltersGroup = (props) => {
   const { searchInput } = props;
-  const [value, setValue] = useState(0);
-  const MAX = 250.0;
+  const max = 250.0;
+  const [value, setValue] = useState(max);
   const getBackgroundSize = () => {
     return {
-      backgroundSize: `${(value * 100) / MAX}% 100%`,
+      backgroundSize: `${(value * 100) / max}% 100%`,
     };
   };
 
@@ -76,7 +76,7 @@ const FiltersGroup = (props) => {
           <input
             type="range"
             min="0"
-            max={MAX}
+            max={max}
             onChange={(e) => setValue(e.target.value)}
             style={getBackgroundSize()}
             value={value}

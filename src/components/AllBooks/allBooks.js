@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { Component } from "react";
 import Header from "../Header/header";
 import Loader from "react-loader-spinner";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -62,105 +62,90 @@ const ratingsList = [
   },
 ];
 
-const AllBooks = () => {
-  const [apiResponse, setApiResponse] = useState({
+class AllBooks extends Component {
+  state = {
     booksList: [],
     apiStatus: apiStatusConstants.initial,
     activeOptionId: sortbyOptions[0].optionId,
     activeCategoryId: "",
     searchInput: "",
     activeRatingId: "",
-  });
-  const [view, setView] = useState(false);
-
-  const onChangeSortby = (event) => {
-    changeSortby(event.target.value);
+    view: false,
+    addToCard: false,
+    count: 1,
   };
 
-  const [addToCard, setAddToCard] = useState(false);
-  const [count, setCount] = useState(1);
+  componentDidMount() {
+    this.getBookList();
+  }
 
-  useEffect(() => {
-    const { activeOptionId, activeCategoryId, searchInput, activeRatingId } =
-      apiResponse;
-    const getBookLists = async () => {
-      setApiResponse({
-        status: apiStatusConstants.inProgress,
-        booksList: null,
-        errorMsg: null,
-      });
-
-      const apiUrl = `https://api.itbook.store/1.0/new`;
-      const options = {
-        method: "GET",
-      };
-      const response = await fetch(apiUrl, options);
-      const data = await response.json();
-      console.log(data);
-
-      if (response.ok) {
-        setApiResponse((prevData) => ({
-          ...prevData,
-          status: apiStatusConstants.success,
-          booksList: data.books,
-        }));
-      } else {
-        setApiResponse((prevData) => ({
-          ...prevData,
-          status: apiStatusConstants.failure,
-          errorMsg: data.error_msg,
-        }));
-      }
+  getBookList = async () => {
+    this.setState({ apiStatus: apiStatusConstants.inProgress });
+    const { searchInput, activeOptionId, activeCategoryId, activeRatingId } =
+      this.state;
+    const apiUrl = `https://api.itbook.store/1.0/new?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`;
+    const options = {
+      method: "GET",
     };
-    getBookLists();
-  }, []);
+    const response = await fetch(apiUrl, options);
+    const data = await response.json();
+    const Updated = data.books.map((each) => ({
+      image: each.image,
+      isbn13: each.isbn13,
+      price: each.price,
+      subtitle: each.subtitle,
+      title: each.title,
+    }));
 
-  const clearFilters = (getBookLists) => {
-    apiResponse(
+    if (response.ok) {
+      this.setState({
+        apiStatus: apiStatusConstants.success,
+        booksList: Updated,
+      });
+    } else {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+        booksList: data.error_msg,
+      });
+    }
+  };
+
+  changeSortby = (activeOptionId) => {
+    this.setState({ activeOptionId }, this.getBookList());
+  };
+
+  changeRating = (activeRatingId) => {
+    this.setState({ activeRatingId }, this.getBookList());
+  };
+
+  changeCategory = (activeCategoryId) => {
+    this.setState({ activeCategoryId }, this.getBookList());
+  };
+
+  enterSearchInput = () => {
+    this.getBookList();
+  };
+
+  changeSearchInput = (searchInput) => {
+    this.setState({ searchInput });
+  };
+
+  onChangeSortby = (event) => {
+    this.changeSortby(event.target.value);
+  };
+
+  clearFilters = () => {
+    this.setState(
       {
         searchInput: "",
         activeCategoryId: "",
         activeRatingId: "",
       },
-      getBookLists()
+      this.getBookList
     );
   };
 
-  const changeSortby = (activeOptionId, getBookLists) => {
-    setApiResponse({ activeOptionId }, getBookLists());
-  };
-
-  const changeRating = (activeRatingId, getBookLists) => {
-    setApiResponse({ activeRatingId }, getBookLists());
-  };
-
-  const changeCategory = (activeCategoryId, getBookLists) => {
-    setApiResponse({ activeCategoryId }, getBookLists());
-  };
-
-  const enterSearchInput = (getBookLists) => {
-    getBookLists();
-  };
-
-  const changeSearchInput = (searchInput) => {
-    setApiResponse({ searchInput });
-  };
-
-  const onAddCard = () => {
-    setAddToCard(true);
-  };
-
-  const onDelete = () => {
-    if (count === 1) {
-      setAddToCard(false);
-    }
-  };
-
-  const Counter = () => {
-    setCount(count + 1);
-  };
-
-  const renderLoader = () => {
+  renderLoader = () => {
     return (
       <div className="loader-container">
         <Loader type="Oval" color="#943E3E" height="50" width="50" />
@@ -168,241 +153,172 @@ const AllBooks = () => {
     );
   };
 
-  const renderSuccessView = () => {
-    const { booksList, activeOptionId } = apiResponse;
-    console.log(booksList)
+  renderFailureView = () => {
+    const { errorMsg } = this.state;
+  };
+
+  gridViewCard = () => {
+    this.setState({ view: false });
+  };
+
+  listViewCard = () => {
+    this.setState((prev) => ({ view: !prev.view }));
+  };
+
+  onAddCard = () => {
+    this.setState((prev) => ({ addToCard: !prev.addToCard }));
+  };
+
+  plus = () => {
+    this.setState((prevCount) => ({ count: prevCount.count + 1 }));
+  };
+
+  minus = () => {
+    this.setState((prevCount) => ({ count: prevCount.count - 1 }));
+  };
+
+  onDelete = () => {
+    const { count } = this.state;
+    if (count === 1) {
+      this.setState({ addToCard: false });
+    }
+  };
+
+  renderSuccessView = () => {
+    const { booksList, activeOptionId, view, count, addToCard } = this.state;
     const gridView = view ? "viewBtn " : "viewBtn active";
     const listView = view ? "viewBtn active" : "viewBtn";
-    return (
-      <>
-        <div className="col-md-9 sort-filters-header">
-          <>
-            <div className="products-header">
-              <div className="books-view">
-                <button
-                  type="button"
-                  className={`${gridView}`}
-                  onClick={() => setView(false)}
-                >
-                  <HiViewGrid className="sort-icons" />
-                </button>
-                <button
-                  type="button"
-                  className={`${listView}`}
-                  onClick={() => setView(true)}
-                >
-                  <HiViewList className="sort-icons" />
-                </button>
-              </div>
-              <div className="available-book-list">
-                <p>
-                  <span>{booksList.length} </span> Product Available
-                </p>
-              </div>
-              <div className="sort-selection">
-                <form action="#">
-                  <label for="sort"></label>
-                  <select
-                    value={activeOptionId}
-                    onChange={onChangeSortby}
-                    name="sort"
-                    id="sort"
-                  >
-                    {sortbyOptions.map((each) => (
-                      <option key={each.optionId} value={each.optionId}>
-                        {each.displayText}
-                      </option>
-                    ))}
-                  </select>
-                </form>
-              </div>
-            </div>
-          </>
 
-          <div className="row justify-content-center">
-            {booksList.map((eachBook) => (
-              <>
-                {view ? (
-                  <div className="col-12 mb-4">
-                    <div className="books-list-view">
-                      <div className="row">
-                        <div className="col-5">
-                          <div className="book-list-left">
-                            <img
-                              className="img-fluid"
-                              src={eachBook.image}
-                              alt={eachBook.title}
-                            />
-                            <span className="book-discount">
-                              <span className="on-sale">-10%</span>
-                            </span>
-                            <ul className="function-icon">
-                              <li>
-                                <button className="icon" onClick={onAddCard}>
-                                  <MdOutlineShoppingCart />
-                                </button>
-                              </li>
-                              <li>
-                                <div className="popup-container">
-                                  <Popup
-                                    modal
-                                    trigger={
-                                      <button
-                                        type="button"
-                                        className="trigger-button icon"
-                                      >
-                                        <BiExpand />
-                                      </button>
-                                    }
-                                  >
-                                    {(close) => (
-                                      <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
-                                        <div className="modal-content">
-                                          <div className="modal-wrapper">
-                                            <div className="modal-wrapper-top">
-                                              <h3>{eachBook.title}</h3>
-                                              <button
-                                                type="button"
-                                                className="trigger-button close-icon"
-                                                onClick={() => close()}
-                                              >
-                                                <IoMdClose />
-                                              </button>
-                                            </div>
-                                            <Modal isbn13={eachBook.isbn13} />
+    return (
+      <div className="col-md-9 sort-filters-header">
+        <>
+          <div className="products-header">
+            <div className="books-view">
+              <button
+                type="button"
+                className={`${gridView}`}
+                onClick={this.gridViewCard}
+              >
+                <HiViewGrid className="sort-icons" />
+              </button>
+              <button
+                type="button"
+                className={`${listView}`}
+                onClick={this.listViewCard}
+              >
+                <HiViewList className="sort-icons" />
+              </button>
+            </div>
+            <div className="available-book-list">
+              <p>
+                <span>{booksList.length} </span> Product Available
+              </p>
+            </div>
+            <div className="sort-selection">
+              <form action="#">
+                <label for="sort"></label>
+                <select
+                  value={activeOptionId}
+                  onChange={this.onChangeSortby}
+                  name="sort"
+                  id="sort"
+                >
+                  {sortbyOptions.map((each) => (
+                    <option key={each.optionId} value={each.optionId}>
+                      {each.displayText}
+                    </option>
+                  ))}
+                </select>
+              </form>
+            </div>
+          </div>
+        </>
+        <div className="row justify-content-center">
+          {booksList.map((eachBook) => (
+            <>
+              {view ? (
+                <div className="col-12 mb-4">
+                  <div className="books-list-view">
+                    <div className="row">
+                      <div className="col-5">
+                        <div className="book-list-left">
+                          <img
+                            className="img-fluid"
+                            src={eachBook.image}
+                            alt={eachBook.title}
+                          />
+                          <span className="book-discount">
+                            <span className="on-sale">-10%</span>
+                          </span>
+                          <ul className="function-icon">
+                            <li>
+                              <button className="icon" onClick={this.onAddCard}>
+                                <MdOutlineShoppingCart />
+                              </button>
+                            </li>
+                            <li>
+                              <div className="popup-container">
+                                <Popup
+                                  modal
+                                  trigger={
+                                    <button
+                                      type="button"
+                                      className="trigger-button icon"
+                                    >
+                                      <BiExpand />
+                                    </button>
+                                  }
+                                >
+                                  {(close) => (
+                                    <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
+                                      <div className="modal-content">
+                                        <div className="modal-wrapper">
+                                          <div className="modal-wrapper-top">
+                                            <h3>{eachBook.title}</h3>
+                                            <button
+                                              type="button"
+                                              className="trigger-button close-icon"
+                                              onClick={() => close()}
+                                            >
+                                              <IoMdClose />
+                                            </button>
                                           </div>
+                                          <Modal isbn13={eachBook.isbn13} />
                                         </div>
                                       </div>
-                                    )}
-                                  </Popup>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="col-7">
-                          <div className="book-bottom-details">
-                            <h3 className="book-title">{eachBook.title}</h3>
-                            <p className="book-subTitle">{eachBook.subtitle}</p>
-                            <div className="price">
-                              Price:
-                              <del>{eachBook.price}</del>{" "}
-                              <span>{eachBook.retailer}</span>
-                            </div>
-                            {addToCard ? (
-                              <div className="calculations">
-                                <div className="calculations-btn">
-                                  <button type="button">
-                                    {count === 1 ? (
-                                      <span onClick={onDelete}>
-                                        <MdDeleteOutline />
-                                      </span>
-                                    ) : (
-                                      <span onClick={() => setCount(count - 1)}>
-                                        <FiMinus />
-                                      </span>
-                                    )}
-                                  </button>
-                                  <span>{count}</span>
-                                  <button type="button" onClick={Counter}>
-                                    <span>
-                                      <IoIosAdd />
-                                    </span>
-                                  </button>
-                                </div>
-                                <span>{eachBook.price * count}</span>
+                                    </div>
+                                  )}
+                                </Popup>
                               </div>
-                            ) : (
-                              <button className="add-to-carts-btn add-to-cart">
-                                <span onClick={onAddCard}>
-                                  <MdOutlineShoppingCart />
-                                  Add to cart
-                                </span>
-                              </button>
-                            )}
-                          </div>
+                            </li>
+                          </ul>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="col-lg-4 col-sm-6 mb-4">
-                    <div className="books-grid-view">
-                      <img
-                        className="img-fluid"
-                        src={eachBook.image}
-                        alt={eachBook.title}
-                      />
-                      <span className="book-discount">
-                        <span className="on-sale">-10%</span>
-                      </span>
-                      <ul className="function-icon">
-                        <li>
-                          <button className="icon" onClick={onAddCard}>
-                            <MdOutlineShoppingCart />
-                          </button>
-                        </li>
-                        <li>
-                          <div className="popup-container">
-                            <Popup
-                              modal
-                              trigger={
-                                <button
-                                  type="button"
-                                  className="trigger-button icon"
-                                >
-                                  <BiExpand />
-                                </button>
-                              }
-                            >
-                              {(close) => (
-                                <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
-                                  <div className="modal-content">
-                                    <div className="modal-wrapper">
-                                      <div className="modal-wrapper-top">
-                                        <h3>{eachBook.title}</h3>
-                                        <button
-                                          type="button"
-                                          className="trigger-button close-icon"
-                                          onClick={() => close()}
-                                        >
-                                          <IoMdClose />
-                                        </button>
-                                      </div>
-                                      <Modal isbn13={eachBook.isbn13} />
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                            </Popup>
+                      <div className="col-7">
+                        <div className="book-bottom-details">
+                          <h3 className="book-title">{eachBook.title}</h3>
+                          <p className="book-subTitle">{eachBook.subtitle}</p>
+                          <div className="price">
+                            Price:
+                            <del>{eachBook.price}</del>{" "}
+                            <span>{eachBook.retailer}</span>
                           </div>
-                        </li>
-                      </ul>
-                      <div className="book-bottom-details">
-                        <h3 className="book-title">{eachBook.title}</h3>
-                        <p className="book-subTitle">{eachBook.subtitle}</p>
-                        <div className="price">
-                          Price:
-                          <del>{eachBook.price}</del>{" "}
-                          <span>{eachBook.retailer}</span>
-                        </div>
-                        <div className="book-card-button">
                           {addToCard ? (
                             <div className="calculations">
                               <div className="calculations-btn">
                                 <button type="button">
                                   {count === 1 ? (
-                                    <span onClick={onDelete}>
+                                    <span onClick={this.onDelete}>
                                       <MdDeleteOutline />
                                     </span>
                                   ) : (
-                                    <span onClick={() => setCount(count - 1)}>
+                                    <span onClick={this.minus}>
                                       <FiMinus />
                                     </span>
                                   )}
                                 </button>
                                 <span>{count}</span>
-                                <button type="button" onClick={Counter}>
+                                <button type="button" onClick={this.plus}>
                                   <span>
                                     <IoIosAdd />
                                   </span>
@@ -412,7 +328,7 @@ const AllBooks = () => {
                             </div>
                           ) : (
                             <button className="add-to-carts-btn add-to-cart">
-                              <span onClick={onAddCard}>
+                              <span onClick={this.onAddCard}>
                                 <MdOutlineShoppingCart />
                                 Add to cart
                               </span>
@@ -422,66 +338,161 @@ const AllBooks = () => {
                       </div>
                     </div>
                   </div>
-                )}
-              </>
-            ))}
-          </div>
+                </div>
+              ) : (
+                <div className="col-lg-4 col-sm-6 mb-4">
+                  <div className="books-grid-view">
+                    <img
+                      className="img-fluid"
+                      src={eachBook.image}
+                      alt={eachBook.title}
+                    />
+                    <span className="book-discount">
+                      <span className="on-sale">-10%</span>
+                    </span>
+                    <ul className="function-icon">
+                      <li>
+                        <button className="icon" onClick={this.onAddCard}>
+                          <MdOutlineShoppingCart />
+                        </button>
+                      </li>
+                      <li>
+                        <div className="popup-container">
+                          <Popup
+                            modal
+                            trigger={
+                              <button
+                                type="button"
+                                className="trigger-button icon"
+                              >
+                                <BiExpand />
+                              </button>
+                            }
+                          >
+                            {(close) => (
+                              <div className="modal-dialog modal-lg modal-dialog-centered modal-bg">
+                                <div className="modal-content">
+                                  <div className="modal-wrapper">
+                                    <div className="modal-wrapper-top">
+                                      <h3>{eachBook.title}</h3>
+                                      <button
+                                        type="button"
+                                        className="trigger-button close-icon"
+                                        onClick={() => close()}
+                                      >
+                                        <IoMdClose />
+                                      </button>
+                                    </div>
+                                    <Modal isbn13={eachBook.isbn13} />
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </Popup>
+                        </div>
+                      </li>
+                    </ul>
+                    <div className="book-bottom-details">
+                      <h3 className="book-title">{eachBook.title}</h3>
+                      <p className="book-subTitle">{eachBook.subtitle}</p>
+                      <div className="price">
+                        Price:
+                        <del>{eachBook.price}</del>{" "}
+                        <span>{eachBook.retailer}</span>
+                      </div>
+                      <div className="book-card-button">
+                        {addToCard ? (
+                          <div className="calculations">
+                            <div className="calculations-btn">
+                              <button type="button">
+                                {count === 1 ? (
+                                  <span onClick={this.onDelete}>
+                                    <MdDeleteOutline />
+                                  </span>
+                                ) : (
+                                  <span onClick={this.minus}>
+                                    <FiMinus />
+                                  </span>
+                                )}
+                              </button>
+                              <span>{count}</span>
+                              <button type="button" onClick={this.plus}>
+                                <span>
+                                  <IoIosAdd />
+                                </span>
+                              </button>
+                            </div>
+                            <span>{eachBook.price * count}</span>
+                          </div>
+                        ) : (
+                          <button className="add-to-carts-btn add-to-cart">
+                            <span onClick={this.onAddCard}>
+                              <MdOutlineShoppingCart />
+                              Add to cart
+                            </span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          ))}
         </div>
-      </>
+      </div>
     );
   };
 
-  const renderFailureView = () => {
-    const { errorMsg } = apiResponse;
-  };
-
-  const renderBooksList = () => {
-    const { status } = apiResponse;
-
-    switch (status) {
-      case apiStatusConstants.inProgress:
-        return renderLoader();
-      case apiStatusConstants.success:
-        return renderSuccessView();
-      case apiStatusConstants.failure:
-        return renderFailureView();
-      default:
-        return null;
-    }
-  };
-
-  const renderFilter = () => {
-    const { searchInput, activeRatingId } = apiResponse;
+  renderFilter = () => {
+    const { searchInput, activeRatingId } = this.state;
 
     return (
       <>
         <FiltersGroup
           searchInput={searchInput}
           ratingsList={ratingsList}
-          changeSearchInput={changeSearchInput}
-          enterSearchInput={enterSearchInput}
+          changeSearchInput={this.changeSearchInput}
+          enterSearchInput={this.enterSearchInput}
           activeRatingId={activeRatingId}
-          changeCategory={changeCategory}
-          changeRating={changeRating}
-          clearFilters={clearFilters}
+          changeCategory={this.changeCategory}
+          changeRating={this.changeRating}
+          clearFilters={this.clearFilters}
         />
       </>
     );
   };
 
-  return (
-    <>
-      <Header />
-      <div className="all-books-section">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">{renderFilter()}</div>
-            {renderBooksList()}
+  renderBooksList = () => {
+    const { apiStatus } = this.state;
+
+    switch (apiStatus) {
+      case apiStatusConstants.inProgress:
+        return this.renderLoader();
+      case apiStatusConstants.success:
+        return this.renderSuccessView();
+      case apiStatusConstants.failure:
+        return this.renderFailureView();
+      default:
+        return null;
+    }
+  };
+
+  render() {
+    return (
+      <>
+        <Header />
+        <div className="all-books-section">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-3">{this.renderFilter()}</div>
+              {this.renderBooksList()}
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+}
 
 export default AllBooks;
