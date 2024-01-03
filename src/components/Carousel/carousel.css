@@ -28,7 +28,7 @@ Link {
 }
 
 .carousel-indicators {
-  position: unset;
+  display: none;
 }
 
 .carousel-control-prev,

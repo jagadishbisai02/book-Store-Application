@@ -1,0 +1,32 @@
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+.available-book-list p {
+  margin-bottom: 0px;
+}
+
+.viewBtn {
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  margin-right: 3px;
+}
+
+.viewBtn .sort-icons {
+  color: #2f4858;
+  font-size: 20px;
+}
+
+.viewBtn.active {
+  background-color: #f8f9fa;
+  border: 1px solid #5a8f7b;
+}
+
+.viewBtn .sort-icons.active{
+  color: #5a8f7b;
+}

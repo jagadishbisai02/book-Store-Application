@@ -1,0 +1,370 @@
+.sort-filters-header {
+  margin-top: 72px;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+.available-book-list p {
+  margin-bottom: 0px;
+}
+
+.viewBtn {
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  margin-right: 3px;
+  color: #2f4858;
+  font-size: 20px;
+}
+
+.viewBtn.active {
+  background-color: #f8f9fa;
+  border: 1px solid #5a8f7b;
+  color: #5a8f7b;
+}
+
+label {
+  display: inline-block;
+}
+
+.products-header select {
+  background-color: #f8f9fa;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
+
+.products-header select option {
+  background-color: #f8f9fa;
+}
+
+.books-grid-view {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 0 15px 5px rgba(1, 6, 33, 0.06);
+  height: 100%;
+  position: relative;
+}
+
+.section-title-center {
+  margin-bottom: 15px;
+}
+
+.books-grid-view .book-discount,
+.books-list-view .book-discount {
+  background-color: #5a8f7b;
+  border-radius: 0 17px 17px 0;
+  color: #fff;
+  font-size: 14px;
+  left: 0;
+  padding: 5px;
+  position: absolute;
+  top: 20px;
+  z-index: 9;
+}
+
+.book-discount .on-sale {
+  content: "";
+  padding: 5px 13px;
+  position: relative;
+}
+
+.books-grid-view .function-icon,
+.books-list-view .function-icon {
+  left: auto;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  transition: 0.5s;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+ul,
+ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.books-grid-view .function-icon li .icon,
+.books-list-view .function-icon li .icon {
+  align-items: center;
+  background-color: #5a8f7b;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  height: 35px;
+  justify-content: center;
+  transition: all 0.5s;
+  width: 35px;
+}
+
+.books-grid-view .function-icon li:hover .icon,
+.books-list-view .function-icon li:hover .icon {
+  background-color: #2f4858;
+  border-radius: 25px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.books-grid-view:hover .function-icon,
+.books-list-view:hover .function-icon {
+  right: 15px;
+}
+
+.books-grid-view:hover .function-icon li,
+.books-list-view:hover .function-icon li {
+  opacity: 1;
+}
+
+.books-grid-view .function-icon li:first-child,
+.books-list-view .function-icon li:first-child {
+  transition-delay: 0.2s;
+}
+
+.books-grid-view .function-icon li,
+.books-list-view .function-icon li {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.books-grid-view .function-icon li:not(:last-child),
+.books-list-view .function-icon li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.books-grid-view .img-fluid {
+  height: auto;
+  max-width: 100%;
+}
+
+.books-grid-view .book-bottom-details {
+  background-color: #fff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 15px;
+  position: relative;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  transition: all 0.4s;
+  z-index: 99;
+}
+
+.books-grid-view:hover .book-bottom-details {
+  -webkit-transform: translateY(-65px);
+  transform: translateY(-65px);
+}
+
+.books-grid-view .book-card-button {
+  background-color: #fff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  padding: 0 15px 15px;
+  position: absolute;
+  right: 0;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  transition: all 0.4s;
+  visibility: hidden;
+}
+
+.books-grid-view .book-card-button button {
+  width: 100%;
+}
+
+.books-grid-view .add-to-carts-btn {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.books-grid-view .book-card-button button span {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.books-grid-view:hover .book-card-button {
+  opacity: 1;
+  visibility: visible;
+  width: 100%;
+}
+
+/* animation of add to card button */
+
+.books-grid-view .add-to-carts-btn {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.books-grid-view .add-to-carts-btn,
+.books-grid-view .add-to-carts-btn:hover {
+  color: #fff;
+}
+
+.books-grid-view .add-to-carts-btn:after,
+.books-grid-view .add-to-carts-btn:before {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.books-grid-view .add-to-cart {
+  background-color: #2f4858;
+  border-radius: 3px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.books-grid-view .add-to-cart span {
+  position: relative;
+}
+
+.books-grid-view .add-to-cart:before {
+  background: #5a8f7b;
+  content: "";
+  left: -12%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  width: 125%;
+}
+
+.books-grid-view .add-to-cart:hover:before {
+  transform: translate3d(100%, 0, 0);
+}
+
+/* book-list-view */
+
+.books-list-view {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(1, 6, 33, 0.06) 2px 0px 15px 5px;
+  height: 100%;
+  border-radius: 5px;
+  padding: 13px;
+  @media screen and (max-width: 564px){
+    padding: 20px;
+  }
+}
+
+.books-list-view .img-fluid {
+  height: auto;
+  max-width: 75%;
+  @media screen and (max-width: 768px){
+    max-width: 90%;
+  }
+  @media screen and (max-width: 564px){
+    max-width: 100%;
+  }
+}
+
+.book-list-left {
+  position: relative;
+}
+
+.books-list-view .add-to-carts-btn {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.books-list-view button span {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* animation of add to card button */
+
+.books-list-view .add-to-carts-btn {
+  background: #5a8f7b;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0;
+  padding: 10px 30px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+}
+
+.books-list-view .add-to-carts-btn,
+.books-list-view .add-to-carts-btn:hover {
+  color: #fff;
+}
+
+.books-list-view .add-to-carts-btn:after,
+.books-list-view .add-to-carts-btn:before {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.books-list-view .add-to-cart {
+  background-color: #2f4858;
+  border-radius: 3px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.books-list-view .add-to-cart span {
+  position: relative;
+}
+
+.books-list-view .add-to-cart:before {
+  background: #5a8f7b;
+  content: "";
+  left: -12%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  width: 125%;
+}
+
+.books-list-view .add-to-cart:hover:before {
+  transform: translate3d(100%, 0, 0);
+}

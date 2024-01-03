@@ -16,7 +16,9 @@ const Header = () => {
   let backdrop;
 
   if (cartShow) {
-    sideCart = <RightSideBar click={() => setCartShow(false)} show={cartShow} />;
+    sideCart = (
+      <RightSideBar click={() => setCartShow(false)} show={cartShow} />
+    );
     backdrop = <Backdrop click={() => setCartShow(false)} />;
   }
 

@@ -4,7 +4,6 @@ import "./rightSideBar.css";
 
 const RightSideBar = (props) => {
   const drawerClass = props.show ? "cart-drawer open" : "cart-drawer ";
-  console.log(drawerClass);
   return (
     <nav className={drawerClass}>
       <div className="cart">

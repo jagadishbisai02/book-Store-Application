@@ -15,6 +15,7 @@ const apiStatusConstants = {
 };
 
 const Modal = (props) => {
+  const {isbn13} = props
   const [addToCard, setAddToCard] = useState(false);
   const [count, setCount] = useState(1);
   const [apiResponse, setApiResponse] = useState({
@@ -44,7 +45,7 @@ const Modal = (props) => {
         errorMsg: null,
       });
 
-      const url = `https://api.itbook.store/1.0/books/${props.isbn13}`;
+      const url = `https://api.itbook.store/1.0/books/${isbn13}`;
       const options = {
         method: "GET",
       };

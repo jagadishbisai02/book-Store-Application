@@ -1,53 +1,131 @@
-import { useState } from "react";
-import {Link} from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
+import Loader from "react-loader-spinner";
 import "./carousel.css";
 
-const BookCarousel = (props) => {
-  const { bookDetails } = props;
+const apiStatusConstants = {
+  initial: "INITIAL",
+  inProgress: "IN_PROGRESS",
+  success: "SUCCESS",
+  failure: "FAILURE",
+};
+
+const BookCarousel = () => {
+  const [apiResponse, setApiResponse] = useState({
+    status: apiStatusConstants.initial,
+    bookDetails: null,
+    errorMsg: null,
+  });
+
+  useEffect(() => {
+    const getBookDeatils = async () => {
+      setApiResponse({
+        status: apiStatusConstants.inProgress,
+        bookDetails: null,
+        errorMsg: null,
+      });
+
+      const apiUrl = "https://api.itbook.store/1.0/new";
+      const options = {
+        method: "GET",
+      };
+      const response = await fetch(apiUrl, options);
+      const data = await response.json();
+      if (response.ok) {
+        setApiResponse((prevData) => ({
+          ...prevData,
+          status: apiStatusConstants.success,
+          bookDetails: data.books,
+        }));
+      } else {
+        setApiResponse((prevData) => ({
+          ...prevData,
+          status: apiStatusConstants.failure,
+          errorMsg: data.error_msg,
+        }));
+      }
+    };
+    getBookDeatils();
+  }, []);
+
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
-  return (
-    <section className="section-bg mt-3 pt-4 container">
-      <Carousel
-        data-bs-theme="dark"
-        activeIndex={index}
-        onSelect={handleSelect}
-        className="bg-gray-0"
-      >
-        {bookDetails.books.map((eachBook) => (
-          <Carousel.Item>
-            <div className="row align-items-center">
-              <div className="col-md-7 col-lg-6 mb-4 mb-lg-0">
-                <h5 className="display-4 book-title mb-4 text-capitalize">
-                  {eachBook.title}
-                </h5>
-                <p className="text-muted mb-5 fs-5">{eachBook.subtitle}</p>
-                <Link to='/all-books'
-                  type="button"
-                  className="shop-now-btn book-shop-btns"
-                >
-                  <span>Shop Now</span>
-                </Link>
+  const renderLoader = () => {
+    return (
+      <div className="loader-container">
+        <Loader type="Oval" color="#943E3E" height="50" width="50" />
+      </div>
+    );
+  };
+
+  const renderFailureView = () => {
+    const { errorMsg } = apiResponse;
+  };
+
+  const renderSuccessView = () => {
+    const { bookDetails } = apiResponse;
+    return (
+      <section className="section-bg mt-3 pt-4 container">
+        <Carousel
+          data-bs-theme="dark"
+          activeIndex={index}
+          onSelect={handleSelect}
+          className="bg-gray-0"
+        >
+          {bookDetails.map((eachBook) => (
+            <Carousel.Item>
+              <div className="row align-items-center">
+                <div className="col-md-7 col-lg-6 mb-4 mb-lg-0">
+                  <h5 className="display-4 book-title mb-4 text-capitalize">
+                    {eachBook.title}
+                  </h5>
+                  <p className="text-muted mb-5 fs-5">{eachBook.subtitle}</p>
+                  <Link
+                    to="/all-books"
+                    type="button"
+                    className="shop-now-btn book-shop-btns"
+                  >
+                    <span>Shop Now</span>
+                  </Link>
+                </div>
+                <div className="col-md-5 offset-lg-1 text-center">
+                  <img
+                    className="d-block w-30 image-height"
+                    src={eachBook.image}
+                    alt={eachBook.title}
+                  />
+                </div>
               </div>
-              <div className="col-md-5 offset-lg-1 text-center">
-                <img
-                  className="d-block w-30 image-height"
-                  src={eachBook.image}
-                  alt={eachBook.title}
-                />
-              </div>
-            </div>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </section>
-  );
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </section>
+    );
+  };
+
+  const renderBookDetails = () => {
+    const { status } = apiResponse;
+
+    switch (status) {
+      case apiStatusConstants.inProgress:
+        return renderLoader();
+      case apiStatusConstants.success:
+        return renderSuccessView();
+      case apiStatusConstants.failure:
+        return renderFailureView();
+      default:
+        return null;
+    }
+  };
+
+  return <>{renderBookDetails()}</>;
+
   // const [current, setCurrent] = useState(0);
   // const length = bookDetails.books.length;
 
